@@ -101,11 +101,11 @@ const SCENES={
       "#....CCCCCCCCCC....#",
       "#..................#",
       "#..................#",
-      "#DD#################"
+      "#########DD#########"
     ],
     doors:[
-      {c:1,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}},
-      {c:9,r:12,w:2,h:1,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
+      {c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}},
+      {c:1,r:1,w:1,h:2,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
       {c:18,r:1,w:1,h:2,to:"lab_shelf",label:"藏书间",spawn:{x:9.5,y:10.5}}
     ],
     npcs:[
@@ -465,10 +465,13 @@ function drawProps(t){
   for(const d of S.doors){
     const x=d.c*TILE,y=d.r*TILE,w=d.w*TILE,h=d.h*TILE;
     if(scene==="yard"||scene.startsWith("lab")){
-      ctx.fillStyle="#3a2a18";ctx.fillRect(x,y,w,h);
-      ctx.fillStyle="#5a4228";ctx.fillRect(x+3,y+3,w-6,h-6);
-      ctx.fillStyle="#c8a860";ctx.fillRect(x+w-9,y+h/2-2,3,3);
-      ctx.fillStyle="#8fa4c4";ctx.font="10px sans-serif";ctx.textAlign="center";
+      // 门框（深色）+ 门板（木色）+ 把手，横竖门统一画法
+      ctx.fillStyle="#2a2014";ctx.fillRect(x,y,w,h);
+      ctx.fillStyle="#5a4228";ctx.fillRect(x+2,y+2,w-4,h-4);
+      ctx.fillStyle="#c8a860";
+      if(d.h>d.w)ctx.fillRect(x+w-8,y+h/2-2,3,4);   // 竖门把手靠右
+      else ctx.fillRect(x+w-9,y+h/2-2,4,3);          // 横门把手靠右
+      ctx.fillStyle="#8fa4c4";ctx.font="10px sans-serif";
       if(d.h>d.w){  // 竖门：标签画在门右侧
         ctx.textAlign="left";ctx.fillText(d.label,x+w+6,y+h/2+4);
       } else {
@@ -476,12 +479,6 @@ function drawProps(t){
         ctx.textAlign="center";ctx.fillText(d.label,x+w/2,ly);
       }
       ctx.textAlign="left";
-    } else if(scene.startsWith("lab")){
-      ctx.fillStyle="#2a2014";ctx.fillRect(x,y,w,h);
-      ctx.fillStyle="#5a4228";ctx.fillRect(x+2,y+2,w-4,h-4);
-      ctx.fillStyle="#c8a860";ctx.fillRect(x+w-7,y+h/2-2,3,3);
-      ctx.fillStyle="#8fa4c4";ctx.font="10px sans-serif";ctx.textAlign="center";
-      ctx.fillText(d.label,x+w/2,y-6);ctx.textAlign="left";
     } else {
       ctx.fillStyle="#0a0e16";ctx.fillRect(x,y,w,h);
       ctx.fillStyle="#2a3a56";ctx.fillRect(x,y,w,2);
