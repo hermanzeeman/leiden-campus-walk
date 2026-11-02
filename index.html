@@ -234,10 +234,10 @@ const SCENES={
   obs:{
     name:"古老天文台",
     map:[
-      "####################",
+      "OOOOOOOOOOOOOOOOOOOO",
+      "OOOOOOOOOOOOOOOOOOOO",
+      "OOOOOOOOOOOOOOOOOOOO",
       "#RRRRRRRRRRRRRRRRRR#",
-      "#OOOOOOOOOOOOOOOOOO#",
-      "#..................#",
       "#..................#",
       "#....T.............#",
       "#....T.......L.....#",
@@ -578,8 +578,8 @@ function drawProps(t){
     }
   }
   if(scene==="obs"){
-    ctx.fillStyle="#4a5670";ctx.fillRect(TILE,TILE+2,(COLS-2)*TILE,4);
-    ctx.fillStyle="#5d6b88";ctx.fillRect(TILE,TILE+2,(COLS-2)*TILE,1);
+    ctx.fillStyle="#4a5670";ctx.fillRect(TILE,3*TILE+2,(COLS-2)*TILE,4);
+    ctx.fillStyle="#5d6b88";ctx.fillRect(TILE,3*TILE+2,(COLS-2)*TILE,1);
   }
 }
 function drawCat(x,y,t){
