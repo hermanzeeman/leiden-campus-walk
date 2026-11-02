@@ -153,7 +153,7 @@ const SCENES={
          "我跟你讲，我想造一台永远转下去的机器。不是永动机，是那种……能自己学会怎么转的机器。听起来很傻，对吧？",
          "（蹲下来，伸手）\n别怕。你要是愿意，就在这儿待着。我们这儿缺一个不催进度的家伙。"
        ]},
-      {id:"alva",name:"阿尔瓦·洛伦兹",x:15.0,y:4.0,color:"#3f4a5a",hair:"#c9c4b8",
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:15.0,y:4.0,color:"#2c323b",hair:"#c9c4b8",
        lines:[
          "（推了推眼镜，从图纸上抬起头）\n赫尔曼，你又在跟空气讲你的永动机了？",
          "（注意到你，语气软下来）\n……哪来的猫。白得这么干净，不像野的。",
@@ -188,7 +188,7 @@ const SCENES={
          "（笑）我知道，我知道，这不是算法。可有时候我觉得，机器要是能学会“记住”，就离我想的东西不远了。",
          "（把烧杯放下，声音低了些）\n阿尔维说我太急。也许吧。但总得有人先急一次。"
        ]},
-      {id:"alva",name:"阿尔瓦·洛伦兹",x:14.0,y:5.0,color:"#3f4a5a",hair:"#c9c4b8",
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:14.0,y:5.0,color:"#2c323b",hair:"#c9c4b8",
        lines:[
          "（在图纸上画线，笔尖顿了顿）\n他又熬了一夜。桌上那杯威士忌是昨晚的，没喝完。",
          "（抬头看见你，伸手挠了挠你的下巴）\n你来得正好。陪我去把他从台子边上拽回来，好吗？",
@@ -222,7 +222,7 @@ const SCENES={
          "（翻开一页，指给你看）\n你看这个批注，是前一个主人写的。隔了一百年，有人在跟我讨论同一个问题。",
          "（合上书，很轻地）\n有时候我想，我做的事会不会也被人这样读。哪怕只有一个。"
        ]},
-      {id:"alva",name:"阿尔瓦·洛伦兹",x:8.4,y:7.4,color:"#3a4658",hair:"#c9c4b8",
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:8.4,y:7.4,color:"#2c323b",hair:"#c9c4b8",
        lines:[
          "（站在窗边，手里也拿着一本）\n他把整个藏书间都搬进实验室了。说是“顺手”，其实每本都按年份排好。",
          "（低头看你，笑了一下）\n他这个人，温柔都藏在别人看不见的地方。",
@@ -257,7 +257,7 @@ const SCENES={
          "（笑了笑，指尖抚过泛黄的书页）\n阿尔瓦总笑我把图书馆当避难所。其实在遇到那个理想之前，这里的每一排书架，我都曾一个人彻夜翻阅过。",
          "（从口袋里摸出一枚用丝带串着的金黄铜书签，在小猫面前轻轻晃了晃）\n安静陪着我坐一会儿吧。等阿尔瓦忙完了，我们一起去运河边喝下午茶。"
        ]},
-      {id:"alva",name:"阿尔瓦·洛伦兹",x:15.0,y:5.0,color:"#3a4658",hair:"#c9c4b8",
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:15.0,y:5.0,color:"#2c323b",hair:"#c9c4b8",
        lines:[
          "（靠在高耸的书架旁，手里捧着一本厚皮笔记，眼镜垂着细银链）\n赫尔曼当年把借阅卡都翻毛边了。管理员到现在都记得那个天天霸占最深处靠窗座位的青年。",
          "（看见猫咪蹭完赫尔曼又颠颠跑过来蹭他的裤脚，低头弯起嘴角）\n怎么，那边的手感不如我这儿？你身上沾满了羊皮纸和旧木料的味道呢。",
@@ -293,7 +293,7 @@ const SCENES={
          "（低头看到脚边的白猫，蹲下轻轻揉了揉猫头）\n小家伙，你也被这里的齿轮声吸引过来了？",
          "（温和地笑笑，站起身望向阿尔瓦）\n今晚夜空很晴朗，是个适合看星星的好地方。"
        ]},
-      {id:"alva",name:"阿尔瓦·洛伦兹",x:8.4,y:7.4,color:"#3a4658",hair:"#c9c4b8",
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:8.4,y:7.4,color:"#2c323b",hair:"#c9c4b8",
        lines:[
          "（靠在栏杆边，抬头看圆顶）\n赫尔曼讲得挺好。就是忘了问我想不想听。",
          "（顿了顿，没有责怪的意思）\n不过……赫尔曼讲的时候，眼睛是亮的。这个我记住了。",
@@ -758,119 +758,134 @@ function drawCat(x,y,t){
 function drawNPC(n,t){
   const px=Math.round(n.x*TILE),py=Math.round(n.y*TILE);
   const bob=Math.sin(t*2+(n.id==="herman"?0:1.7))*1.0,y=py+bob;
-  // 投影
+  // 角色脚底柔和阴影
   ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
   ctx.ellipse(px,py+14,n.id==="herman"?14:12,4,0,0,6.283);ctx.fill();
 
   if(n.id==="herman"){
-    // 赫尔曼·塞曼（195cm，棕色细竖条纹西服、翻领绿色内衬、棕色马甲、白色餐巾式多层宽幅领饰、绿宝石领针、中分棕发、深绿瞳孔、深邃鹰钩鼻）
-    // 裤子与皮靴
+    // 赫尔曼·塞曼（195cm，棕色细竖条纹西服、鲜明草绿大翻领、酒红修身马甲配金扣、白褶Jabot领饰、祖母绿领针、手捧学术手稿、深邃绿眸与鹰钩鼻、中分微卷棕发）
+    // 1. 裤子与皮靴
     ctx.fillStyle="#1c1815";ctx.fillRect(px-6,y+4,5,11);ctx.fillRect(px+2,y+4,5,11);
     ctx.fillStyle="#0f0c0a";ctx.fillRect(px-7,y+13,6,3);ctx.fillRect(px+2,y+13,6,3);
 
-    // 棕色定制西服与细条纹
+    // 2. 棕色定制西装外套与细竖条纹
     ctx.fillStyle="#4e3622";ctx.fillRect(px-9,y-11,18,16);
-    ctx.strokeStyle="#5c412b";ctx.lineWidth=1;
+    ctx.strokeStyle="#5e422a";ctx.lineWidth=1;
     for(const sx of [-7,-4,4,7]){
       ctx.beginPath();ctx.moveTo(px+sx,y-10);ctx.lineTo(px+sx,y+4);ctx.stroke();
     }
-    // 翻领露出的绿色内衬
-    ctx.fillStyle="#22482f";
-    ctx.fillRect(px-8,y-10,2,11);ctx.fillRect(px+6,y-10,2,11);
 
-    // 棕色马甲
-    ctx.fillStyle="#382415";ctx.fillRect(px-5,y-9,10,13);
+    // 3. 极具标志性的草绿色大翻领内衬（原图左领大面积翻折）
+    ctx.fillStyle="#567240";
+    ctx.beginPath();ctx.moveTo(px-8,y-11);ctx.lineTo(px-4,y-11);ctx.lineTo(px-5,y+2);ctx.lineTo(px-9,y-2);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(px+8,y-11);ctx.lineTo(px+4,y-11);ctx.lineTo(px+5,y+2);ctx.lineTo(px+9,y-2);ctx.closePath();ctx.fill();
+    ctx.strokeStyle="#6e8c53";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(px-8,y-11);ctx.lineTo(px-5,y+2);ctx.moveTo(px+8,y-11);ctx.lineTo(px+5,y+2);ctx.stroke();
 
-    // 白色餐巾式多层宽幅领饰 (Jabot / Cravat)
-    ctx.fillStyle="#fcfbf8";ctx.fillRect(px-4,y-9,8,3);
-    ctx.fillStyle="#f3efe8";ctx.fillRect(px-5,y-6,10,4);
-    ctx.fillStyle="#e5dfd5";ctx.fillRect(px-4,y-2,8,3);
-    ctx.strokeStyle="#d5cdbe";ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(px-2,y-6);ctx.lineTo(px-2,y+1);ctx.moveTo(px+2,y-6);ctx.lineTo(px+2,y+1);ctx.stroke();
+    // 4. 酒红/暗红棕色修身马甲与金排扣（原图内搭）
+    ctx.fillStyle="#783428";ctx.fillRect(px-4,y-8,8,12);
+    ctx.fillStyle="#8c3f32";ctx.fillRect(px-3,y-6,6,10);
+    ctx.fillStyle="#cca43b";ctx.fillRect(px,y-3,1,2);ctx.fillRect(px,y+1,1,2);
 
-    // 绿宝石领针（黄金底座 + 祖母绿）
-    ctx.fillStyle="#cca43b";ctx.fillRect(px-2,y-7,4,3);
-    ctx.fillStyle="#1ea85d";ctx.fillRect(px-1,y-6,2,2);
+    // 5. 白色餐巾式多层宽幅领饰 (Jabot / Cravat)
+    ctx.fillStyle="#fcfbf8";ctx.fillRect(px-4,y-10,8,3);
+    ctx.fillStyle="#f3efe8";ctx.fillRect(px-5,y-7,10,4);
+    ctx.fillStyle="#e6e1d6";ctx.fillRect(px-4,y-3,8,3);
+    ctx.strokeStyle="#d0c9bb";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(px-2,y-7);ctx.lineTo(px-2,y);ctx.moveTo(px+2,y-7);ctx.lineTo(px+2,y);ctx.stroke();
 
-    // 面部与深邃五官
+    // 6. 祖母绿领针（黄金底托 + 翡翠绿宝石）
+    ctx.fillStyle="#d4af37";ctx.fillRect(px-2,y-8,4,3);
+    ctx.fillStyle="#1eb853";ctx.fillRect(px-1,y-7,2,2);
+    ctx.fillStyle="#8affb0";ctx.fillRect(px,y-7,1,1);
+
+    // 7. 手中正热切捧着展开的研究手稿/图纸
+    ctx.fillStyle="#faf8f2";ctx.fillRect(px-2,y-2,9,7);
+    ctx.fillStyle="#ede8db";ctx.fillRect(px-1,y-1,7,5);
+    ctx.strokeStyle="#9e988b";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(px,y+1);ctx.lineTo(px+5,y+1);ctx.moveTo(px,y+3);ctx.lineTo(px+5,y+3);ctx.stroke();
+    ctx.fillStyle="#eacba8";ctx.fillRect(px+6,y+2,2,2); // 托着书纸的指尖
+
+    // 8. 面部与深邃轮廓
     ctx.fillStyle="#eacba8";ctx.fillRect(px-6,y-23,12,12);
     // 鹰钩鼻阴影
     ctx.fillStyle="#d8b28a";ctx.fillRect(px,y-17,1,3);
+    ctx.fillStyle="#bf9973";ctx.fillRect(px,y-14,1,1);
 
-    // 深绿色瞳孔
-    ctx.fillStyle="#185c36";ctx.fillRect(px-4,y-18,2,2);ctx.fillRect(px+2,y-18,2,2);
-    ctx.fillStyle="#3fb66b";ctx.fillRect(px-3,y-18,1,1);ctx.fillRect(px+3,y-18,1,1);
+    // 9. 碧绿清澈眼眸（深绿底色 + 翠绿光芒，自信而专注）
+    ctx.fillStyle="#155e30";ctx.fillRect(px-4,y-18,2,2);ctx.fillRect(px+2,y-18,2,2);
+    ctx.fillStyle="#3ec26c";ctx.fillRect(px-3,y-18,1,1);ctx.fillRect(px+3,y-18,1,1);
+    ctx.fillStyle="#3d2715";ctx.fillRect(px-4,y-19,3,1);ctx.fillRect(px+1,y-19,3,1); // 眉毛
 
-    // 棕色短发 · 规整中分
+    // 10. 棕色卷曲蓬松中分短发
     ctx.fillStyle="#4a3018";
     ctx.fillRect(px-7,y-26,14,5);        // 发顶
-    ctx.fillRect(px-8,y-23,2,8);         // 左侧鬓角
-    ctx.fillRect(px+6,y-23,2,8);         // 右侧鬓角
-    ctx.fillRect(px-6,y-22,4,2);         // 左侧中分刘海
-    ctx.fillRect(px+2,y-22,4,2);         // 右侧中分刘海
+    ctx.fillRect(px-9,y-23,3,8);         // 左侧微卷外翘鬓发
+    ctx.fillRect(px+6,y-23,3,8);         // 右侧微卷外翘鬓发
+    ctx.fillRect(px-6,y-22,4,2);         // 左侧中分微翘刘海
+    ctx.fillRect(px+2,y-22,4,2);         // 右侧中分微翘刘海
     ctx.fillStyle="#eacba8";
-    ctx.fillRect(px-1,y-23,2,3);         // 中分露出额头
+    ctx.fillRect(px-1,y-23,2,2);         // 中分露出的额头
     ctx.fillStyle="#6a4726";
-    ctx.fillRect(px-5,y-25,3,1);ctx.fillRect(px+2,y-25,3,1); // 高光
+    ctx.fillRect(px-5,y-25,3,1);ctx.fillRect(px+2,y-25,3,1); // 柔和发丝高光
 
   } else if(n.id==="alva"){
-    // 阿尔瓦·洛伦兹（深蓝礼服西装、右肩金色绶带绳、左胸紫色鸢尾花、白褶餐巾领结配椭圆白宝石、单片金链眼镜、蔚蓝眼眸、银白波浪卷长发、左肩束金圈侧马尾）
-    // 裤子与靴
-    ctx.fillStyle="#141926";ctx.fillRect(px-5,y+4,4,11);ctx.fillRect(px+1,y+4,4,11);
-    ctx.fillStyle="#0c101a";ctx.fillRect(px-6,y+13,5,3);ctx.fillRect(px+1,y+13,5,3);
+    // 阿尔瓦·洛伦兹（鼠尾草灰绿衬衫卷袖、深炭灰修身马甲配黑西裤、金丝单片眼镜配细链、清冷专注的深邃蓝眼、银白微卷波浪长发束单马尾）
+    // 1. 挺拔黑色西装长裤与皮靴
+    ctx.fillStyle="#161820";ctx.fillRect(px-5,y+4,4,11);ctx.fillRect(px+1,y+4,4,11);
+    ctx.fillStyle="#0c0e14";ctx.fillRect(px-6,y+13,5,3);ctx.fillRect(px+1,y+13,5,3);
+    // 黑色皮带与银扣
+    ctx.fillStyle="#101217";ctx.fillRect(px-5,y+3,10,2);
+    ctx.fillStyle="#b8c0cc";ctx.fillRect(px-1,y+3,2,2);
 
-    // 深蓝礼服大衣
-    ctx.fillStyle="#1b2438";ctx.fillRect(px-8,y-10,16,15);
+    // 2. 浅鼠尾草绿/青草灰长袖衬衫（原图经典学者衬衫）
+    ctx.fillStyle="#8fa58b";ctx.fillRect(px-8,y-10,16,14);
+    // 卷至手肘的袖口与露出的修长白皙小臂
+    ctx.fillStyle="#7a9277";ctx.fillRect(px-9,y-3,2,4);ctx.fillRect(px+7,y-3,2,4);
+    ctx.fillStyle="#f3e5da";ctx.fillRect(px-9,y+1,2,4);ctx.fillRect(px+7,y+1,2,4);
 
-    // 右肩金色绶带绳（画面左侧）
-    ctx.fillStyle="#cda844";ctx.fillRect(px-9,y-10,2,4);
-    ctx.strokeStyle="#b89332";ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(px-8,y-6);ctx.lineTo(px-5,y-2);ctx.stroke();
+    // 3. 深炭黑/深灰色修身西装马甲
+    ctx.fillStyle="#282a32";ctx.fillRect(px-5,y-9,10,13);
+    ctx.fillStyle="#33363f";ctx.fillRect(px-4,y-8,8,11);
+    // 马甲 V 领微开，露出的浅绿衬衫领口与白领扣
+    ctx.fillStyle="#a1b79d";
+    ctx.beginPath();ctx.moveTo(px-2,y-9);ctx.lineTo(px+2,y-9);ctx.lineTo(px,y-5);ctx.closePath();ctx.fill();
+    ctx.fillStyle="#ffffff";ctx.fillRect(px,y-8,1,2);
 
-    // 左胸紫色鸢尾花（画面右侧）
-    ctx.fillStyle="#7142a6";ctx.fillRect(px+5,y-6,3,3);
-    ctx.fillStyle="#f5cf42";ctx.fillRect(px+6,y-5,1,1);
+    // 4. 手轻按在案前图纸上的学者姿态
+    ctx.fillStyle="#f3e5da";ctx.fillRect(px-6,y+2,5,3);
 
-    // 白色层叠褶皱餐巾式领巾 (Jabot)
-    ctx.fillStyle="#fbfcfd";ctx.fillRect(px-4,y-10,8,4);
-    ctx.fillStyle="#eff2f7";ctx.fillRect(px-5,y-6,10,4);
-    ctx.fillStyle="#dee4ee";ctx.fillRect(px-4,y-2,8,4);
-    ctx.strokeStyle="#cbd3e2";ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(px-2,y-6);ctx.lineTo(px-2,y+1);ctx.moveTo(px+2,y-6);ctx.lineTo(px+2,y+1);ctx.stroke();
-
-    // 金边白宝石胸针
-    ctx.fillStyle="#cda844";ctx.fillRect(px-2,y-7,4,3);
-    ctx.fillStyle="#ffffff";ctx.fillRect(px-1,y-6,2,2);
-
-    // 清秀白皙面容
+    // 5. 清秀白皙面容与挺拔下颌
     ctx.fillStyle="#f3e5da";ctx.fillRect(px-6,y-22,12,11);
 
-    // 蔚蓝深邃眼眸
-    ctx.fillStyle="#225bb5";ctx.fillRect(px-4,y-17,2,2);ctx.fillRect(px+2,y-17,2,2);
-    ctx.fillStyle="#6eb2ff";ctx.fillRect(px-4,y-17,1,1);ctx.fillRect(px+2,y-17,1,1);
+    // 6. 蔚蓝深邃眼眸（原图与要求中清冷专注的纯正蓝宝石眼睛）
+    ctx.fillStyle="#1c55ad";ctx.fillRect(px-4,y-17,2,2);ctx.fillRect(px+2,y-17,2,2);
+    ctx.fillStyle="#62a7ff";ctx.fillRect(px-4,y-17,1,1);ctx.fillRect(px+2,y-17,1,1);
+    ctx.fillStyle="#9aa2b2";ctx.fillRect(px-4,y-18,3,1);ctx.fillRect(px+1,y-18,3,1); // 浅色眉毛
 
-    // 右眼金丝单片眼镜与垂链（画面左侧）
+    // 7. 金丝单片眼镜与精巧垂链（右眼，画面左侧）
     ctx.strokeStyle="#dcb343";ctx.lineWidth=1;
     ctx.strokeRect(px-5.5,y-18.5,4,4);
     ctx.beginPath();
     ctx.moveTo(px-5,y-14);ctx.lineTo(px-6,y-10);ctx.lineTo(px-5,y-6);
     ctx.stroke();
 
-    // 银白波浪卷长发（微卷蓬松质感）
-    ctx.fillStyle="#dbe0eb";
+    // 8. 银白波浪卷长发（优雅层次与左肩侧马尾）
+    ctx.fillStyle="#dce1ec";
     ctx.fillRect(px-7,y-26,14,5);        // 发顶
     ctx.fillRect(px-9,y-22,3,14);        // 左侧微卷垂发
-    ctx.fillRect(px+6,y-22,3,11);        // 右侧微卷垂发
-    ctx.fillStyle="#b8c0cf";
-    ctx.fillRect(px-9,y-8,2,3);          // 蓬松发尾微翘
+    ctx.fillRect(px+5,y-22,3,12);        // 右侧微卷垂发
+    ctx.fillStyle="#c4cad8";
+    ctx.fillRect(px-9,y-8,2,3);          // 蓬松发尾微卷
     // 额前微卷刘海
-    ctx.fillStyle="#eef2f9";
+    ctx.fillStyle="#eff3fb";
     ctx.fillRect(px-6,y-22,2,3);ctx.fillRect(px-1,y-22,2,3);ctx.fillRect(px+3,y-22,2,3);
 
-    // 左肩垂在胸前的侧马尾束（画面右侧），佩戴金色发扣
-    ctx.fillStyle="#dcb343";ctx.fillRect(px+5,y-8,3,2); // 金色发圈
-    ctx.fillStyle="#dbe0eb";ctx.fillRect(px+5,y-6,3,7); // 垂至胸前的发束
-    ctx.fillStyle="#cbd1de";ctx.fillRect(px+6,y+1,3,3); // 发梢渐变
+    // 束在后侧垂至左肩前方的微卷侧马尾（佩戴深色细发绳）
+    ctx.fillStyle="#272a33";ctx.fillRect(px+6,y-21,2,2); // 发绳
+    ctx.fillStyle="#dce1ec";ctx.fillRect(px+6,y-19,3,10);
+    ctx.fillStyle="#c4cad8";ctx.fillRect(px+7,y-9,3,7);
+    ctx.fillStyle="#adb5c5";ctx.fillRect(px+7,y-2,2,3);  // 发梢优雅收束
   }
 }
 function drawVignette(){
