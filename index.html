@@ -624,7 +624,7 @@ function drawProps(t){
 }
 function drawCat(x,y,t){
   const isMoving = player.step > 0;
-  const isSleeping = !isMoving && (player.idleTimer >= 10.0);
+  const isSleeping = !isMoving && (player.idleTimer >= 5.0);
   const bob = isMoving ? Math.sin(t*9)*1.2 : (isSleeping ? Math.sin(t*1.6)*0.4 : Math.sin(t*2.2)*0.5);
   const px = Math.round(x), py = Math.round(y+bob);
   ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
