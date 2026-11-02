@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>莱顿大学 · 漫步</title>
 <style>
   *{box-sizing:border-box}
@@ -33,6 +33,29 @@
     color:#c8d4e8;font-size:14px;letter-spacing:.3em;opacity:0;transition:opacity .6s;
     pointer-events:none;text-shadow:0 2px 10px #000;z-index:10}
   #title.on{opacity:.85}
+  /* ---- 移动端：摇杆 + 动作键 ---- */
+  #touch{position:absolute;inset:0;pointer-events:none;display:none;z-index:15}
+  #touch.on{display:block}
+  #stickBase{position:absolute;left:22px;bottom:calc(24px + env(safe-area-inset-bottom));
+    width:118px;height:118px;border-radius:50%;pointer-events:auto;touch-action:none;
+    background:radial-gradient(circle,rgba(20,30,48,.55),rgba(12,18,30,.35));
+    border:2px solid rgba(140,165,205,.45);box-shadow:0 0 18px rgba(0,0,0,.45)}
+  #stickKnob{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;
+    border-radius:50%;background:radial-gradient(circle at 35% 30%,#e8eef8,#9fb2cc);
+    box-shadow:0 3px 10px rgba(0,0,0,.5);transition:transform .05s linear}
+  #btnE{position:absolute;right:26px;bottom:calc(40px + env(safe-area-inset-bottom));
+    width:82px;height:82px;border-radius:50%;pointer-events:auto;touch-action:none;
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:700;color:#f2f6ff;letter-spacing:.05em;
+    background:radial-gradient(circle at 35% 30%,rgba(90,120,170,.95),rgba(40,58,88,.95));
+    border:2px solid rgba(160,185,225,.6);box-shadow:0 4px 16px rgba(0,0,0,.5)}
+  #btnE:active{transform:scale(.94);background:radial-gradient(circle at 35% 30%,#7fa0d0,#3c5478)}
+  @media (pointer:coarse){
+    #hint{bottom:auto;top:12px;font-size:11px;padding:5px 12px}
+    #dialog{bottom:calc(150px + env(safe-area-inset-bottom));width:92vw;padding:14px 16px 12px}
+    #text{font-size:14px;min-height:44px}
+    #next{font-size:11px}
+  }
 </style>
 </head>
 <body>
@@ -45,6 +68,10 @@
     <div id="text"></div>
     <div id="next">E / 空格 / 点击 继续</div>
   </div>
+  <div id="touch">
+    <div id="stickBase"><div id="stickKnob"></div></div>
+    <div id="btnE">E</div>
+  </div>
   <div id="fade"></div>
 </div>
 <script>
@@ -52,11 +79,20 @@
 const TILE=32, COLS=20, ROWS=13;
 const cv=document.getElementById("game"), ctx=cv.getContext("2d");
 ctx.imageSmoothingEnabled=false;
+const isTouch = matchMedia("(pointer:coarse)").matches || "ontouchstart" in window;
 function fit(){
-  const s=Math.min(innerWidth/cv.width, innerHeight/cv.height);
-  const k=Math.max(1, Math.floor(s));
-  cv.style.width=(cv.width*k)+"px";
-  cv.style.height=(cv.height*k)+"px";
+  const vw=innerWidth, vh=innerHeight;
+  if(isTouch){
+    // 手机端：宽度铺满，高度按比例，整体居中，避免被裁切
+    const k=Math.min(vw/cv.width, vh/cv.height);
+    cv.style.width=Math.floor(cv.width*k)+"px";
+    cv.style.height=Math.floor(cv.height*k)+"px";
+  } else {
+    const s=Math.min(vw/cv.width, vh/cv.height);
+    const k=Math.max(1, Math.floor(s));
+    cv.style.width=(cv.width*k)+"px";
+    cv.style.height=(cv.height*k)+"px";
+  }
 }
 addEventListener("resize", fit); fit();
 
@@ -291,6 +327,57 @@ addEventListener("keydown",e=>{
   if(k==="e"||k===" "){ if(dialogOpen)advance(); else interact(); }
 });
 addEventListener("keyup",e=>{keys[e.key.toLowerCase()]=false;});
+
+/* 虚拟摇杆 */
+const stick={x:0,y:0,active:false};
+const baseEl=document.getElementById("stickBase"),knobEl=document.getElementById("stickKnob"),
+      touchEl=document.getElementById("touch"),btnE=document.getElementById("btnE");
+if(isTouch){
+  touchEl.classList.add("on");
+  document.getElementById("hint").textContent="摇杆移动 · 按 E 进门 / 说话";
+}
+(function bindStick(){
+  let id=null,R=0;
+  const setKnob=(dx,dy)=>{knobEl.style.transform=`translate(${dx}px,${dy}px)`;};
+  const start=e=>{
+    const t=e.changedTouches?e.changedTouches[0]:e;
+    id=t.identifier!==undefined?t.identifier:"mouse";
+    const r=baseEl.getBoundingClientRect();R=r.width/2;
+    stick.active=true;move(e);
+  };
+  const move=e=>{
+    if(!stick.active)return;
+    const list=e.changedTouches?e.changedTouches:[e];
+    let t=null;
+    for(const c of list){ if((c.identifier!==undefined?c.identifier:"mouse")===id) t=c; }
+    if(!t)return;
+    const r=baseEl.getBoundingClientRect();
+    let dx=t.clientX-(r.left+r.width/2), dy=t.clientY-(r.top+r.height/2);
+    const d=Math.hypot(dx,dy), max=r.width/2-10;
+    if(d>max){dx=dx/d*max;dy=dy/d*max;}
+    setKnob(dx,dy);
+    stick.x=dx/max;stick.y=dy/max;
+    e.preventDefault();
+  };
+  const end=e=>{
+    const list=e.changedTouches?e.changedTouches:[e];
+    let hit=false;
+    for(const c of list){ if((c.identifier!==undefined?c.identifier:"mouse")===id) hit=true; }
+    if(!hit)return;
+    stick.active=false;stick.x=0;stick.y=0;id=null;setKnob(0,0);
+  };
+  baseEl.addEventListener("touchstart",start,{passive:false});
+  baseEl.addEventListener("touchmove",move,{passive:false});
+  baseEl.addEventListener("touchend",end);
+  baseEl.addEventListener("touchcancel",end);
+  baseEl.addEventListener("mousedown",start);
+  addEventListener("mousemove",move);
+  addEventListener("mouseup",end);
+})();
+btnE.addEventListener("touchstart",e=>{e.preventDefault();e.stopPropagation();
+  if(dialogOpen)advance(); else interact();},{passive:false});
+btnE.addEventListener("click",e=>{e.stopPropagation();
+  if(dialogOpen)advance(); else interact();});
 cv.addEventListener("click",()=>{ if(dialogOpen)advance(); });
 document.getElementById("dialog").addEventListener("click",()=>{ if(dialogOpen)advance(); });
 
@@ -340,6 +427,7 @@ function update(dt){
   if(keys["d"]||keys["arrowright"])dx++;
   if(keys["w"]||keys["arrowup"])dy--;
   if(keys["s"]||keys["arrowdown"])dy++;
+  if(stick.active&&(stick.x||stick.y)){dx+=stick.x;dy+=stick.y;}
   if(dx||dy){
     const l=Math.hypot(dx,dy);dx/=l;dy/=l;
     if(Math.abs(dx)>Math.abs(dy))player.dir=dx>0?"right":"left";
@@ -571,14 +659,14 @@ function loop(now){
       if(Math.hypot(cx-player.x,cy-player.y)<46){
         ctx.fillStyle="rgba(238,242,248,.94)";ctx.fillRect(cx-30,cy-46,60,16);
         ctx.fillStyle="#2c3f5e";ctx.font="10px sans-serif";ctx.textAlign="center";
-        ctx.fillText("E 进门",cx,cy-34);ctx.textAlign="left";shown=true;break;
+        ctx.fillText(isTouch?"进门":"E 进门",cx,cy-34);ctx.textAlign="left";shown=true;break;
       }
     }
     if(!shown)for(const n of S.npcs){
       if(Math.hypot(n.x*TILE-player.x,n.y*TILE-player.y)<62){
         ctx.fillStyle="rgba(238,242,248,.94)";ctx.fillRect(n.x*TILE-28,n.y*TILE-40,56,16);
         ctx.fillStyle="#2c3f5e";ctx.font="10px sans-serif";ctx.textAlign="center";
-        ctx.fillText("E 说话",n.x*TILE,n.y*TILE-28);ctx.textAlign="left";break;
+        ctx.fillText(isTouch?"说话":"E 说话",n.x*TILE,n.y*TILE-28);ctx.textAlign="left";break;
       }
     }
   }
