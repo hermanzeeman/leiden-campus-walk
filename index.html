@@ -687,10 +687,12 @@ function drawCat(x,y,t){
     ctx.fillStyle = "#e8b9b0";
     ctx.fillRect(hx + 3, hy - 8, 2, 3);
 
-    // 7. 灵动的碧绿猫眼与瞳孔（朝向行进方向）
-    ctx.fillStyle = "#5ad6a8";
+    // 7. 灵动的深邃蓝眼与瞳孔（朝向行进方向）
+    ctx.fillStyle = "#2b6cb0";
     ctx.fillRect(hx + 3, hy - 2, 2, 3);
-    ctx.fillStyle = "#1e3a2b";
+    ctx.fillStyle = "#90cdf4";
+    ctx.fillRect(hx + 3, hy - 2, 1, 1);
+    ctx.fillStyle = "#0f2347";
     ctx.fillRect(hx + 4, hy - 2, 1, 3);
 
     // 8. 粉色小鼻尖
@@ -736,7 +738,7 @@ function drawCat(x,y,t){
     ctx.fillRect(hx + 3, sy - 8, 2, 2);
 
     // 闭上的弯月睡眼
-    ctx.strokeStyle = "#3d7e63";
+    ctx.strokeStyle = "#2b6cb0";
     ctx.lineWidth = 1.3;
     ctx.beginPath();
     ctx.moveTo(hx - 4.5, sy - 1.5); ctx.lineTo(hx - 3, sy - 2.8); ctx.lineTo(hx - 1.5, sy - 1.5);
@@ -756,42 +758,119 @@ function drawCat(x,y,t){
 function drawNPC(n,t){
   const px=Math.round(n.x*TILE),py=Math.round(n.y*TILE);
   const bob=Math.sin(t*2+(n.id==="herman"?0:1.7))*1.0,y=py+bob;
+  // 投影
   ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
-  ctx.ellipse(px,py+14,12,4,0,0,6.283);ctx.fill();
-  ctx.fillStyle="#1e2430";ctx.fillRect(px-6,y+4,5,10);ctx.fillRect(px+1,y+4,5,10);
-  ctx.fillStyle=n.color;ctx.fillRect(px-8,y-10,16,16);
-  ctx.fillStyle="#dfe4ec";ctx.fillRect(px-2,y-10,4,12);
-  ctx.fillStyle="#4a8a5a";ctx.fillRect(px-1,y-7,2,2);
-  ctx.fillStyle="#e8c9a8";ctx.fillRect(px-6,y-22,12,12);
-  if(n.id==="alva"){
-    // 长发：头顶 + 两侧垂到肩下的发丝
-    ctx.fillStyle=n.hair;
-    ctx.fillRect(px-7,y-25,14,6);
-    ctx.fillRect(px-8,y-22,3,14);
-    ctx.fillRect(px+5,y-22,3,14);
-    ctx.fillRect(px-8,y-9,3,4);ctx.fillRect(px+5,y-9,3,4);
-    // 马尾：从画面右侧（他的左肩）扎起，垂到肩前
-    ctx.fillStyle="#b8b2a4";
-    ctx.fillRect(px+7,y-21,2,2);                 // 发绳
+  ctx.ellipse(px,py+14,n.id==="herman"?14:12,4,0,0,6.283);ctx.fill();
+
+  if(n.id==="herman"){
+    // 赫尔曼·塞曼（195cm，棕色细竖条纹西服、翻领绿色内衬、棕色马甲、白色餐巾式多层宽幅领饰、绿宝石领针、中分棕发、深绿瞳孔、深邃鹰钩鼻）
+    // 裤子与皮靴
+    ctx.fillStyle="#1c1815";ctx.fillRect(px-6,y+4,5,11);ctx.fillRect(px+2,y+4,5,11);
+    ctx.fillStyle="#0f0c0a";ctx.fillRect(px-7,y+13,6,3);ctx.fillRect(px+2,y+13,6,3);
+
+    // 棕色定制西服与细条纹
+    ctx.fillStyle="#4e3622";ctx.fillRect(px-9,y-11,18,16);
+    ctx.strokeStyle="#5c412b";ctx.lineWidth=1;
+    for(const sx of [-7,-4,4,7]){
+      ctx.beginPath();ctx.moveTo(px+sx,y-10);ctx.lineTo(px+sx,y+4);ctx.stroke();
+    }
+    // 翻领露出的绿色内衬
+    ctx.fillStyle="#22482f";
+    ctx.fillRect(px-8,y-10,2,11);ctx.fillRect(px+6,y-10,2,11);
+
+    // 棕色马甲
+    ctx.fillStyle="#382415";ctx.fillRect(px-5,y-9,10,13);
+
+    // 白色餐巾式多层宽幅领饰 (Jabot / Cravat)
+    ctx.fillStyle="#fcfbf8";ctx.fillRect(px-4,y-9,8,3);
+    ctx.fillStyle="#f3efe8";ctx.fillRect(px-5,y-6,10,4);
+    ctx.fillStyle="#e5dfd5";ctx.fillRect(px-4,y-2,8,3);
+    ctx.strokeStyle="#d5cdbe";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(px-2,y-6);ctx.lineTo(px-2,y+1);ctx.moveTo(px+2,y-6);ctx.lineTo(px+2,y+1);ctx.stroke();
+
+    // 绿宝石领针（黄金底座 + 祖母绿）
+    ctx.fillStyle="#cca43b";ctx.fillRect(px-2,y-7,4,3);
+    ctx.fillStyle="#1ea85d";ctx.fillRect(px-1,y-6,2,2);
+
+    // 面部与深邃五官
+    ctx.fillStyle="#eacba8";ctx.fillRect(px-6,y-23,12,12);
+    // 鹰钩鼻阴影
+    ctx.fillStyle="#d8b28a";ctx.fillRect(px,y-17,1,3);
+
+    // 深绿色瞳孔
+    ctx.fillStyle="#185c36";ctx.fillRect(px-4,y-18,2,2);ctx.fillRect(px+2,y-18,2,2);
+    ctx.fillStyle="#3fb66b";ctx.fillRect(px-3,y-18,1,1);ctx.fillRect(px+3,y-18,1,1);
+
+    // 棕色短发 · 规整中分
+    ctx.fillStyle="#4a3018";
+    ctx.fillRect(px-7,y-26,14,5);        // 发顶
+    ctx.fillRect(px-8,y-23,2,8);         // 左侧鬓角
+    ctx.fillRect(px+6,y-23,2,8);         // 右侧鬓角
+    ctx.fillRect(px-6,y-22,4,2);         // 左侧中分刘海
+    ctx.fillRect(px+2,y-22,4,2);         // 右侧中分刘海
+    ctx.fillStyle="#eacba8";
+    ctx.fillRect(px-1,y-23,2,3);         // 中分露出额头
+    ctx.fillStyle="#6a4726";
+    ctx.fillRect(px-5,y-25,3,1);ctx.fillRect(px+2,y-25,3,1); // 高光
+
+  } else if(n.id==="alva"){
+    // 阿尔瓦·洛伦兹（深蓝礼服西装、右肩金色绶带绳、左胸紫色鸢尾花、白褶餐巾领结配椭圆白宝石、单片金链眼镜、蔚蓝眼眸、银白波浪卷长发、左肩束金圈侧马尾）
+    // 裤子与靴
+    ctx.fillStyle="#141926";ctx.fillRect(px-5,y+4,4,11);ctx.fillRect(px+1,y+4,4,11);
+    ctx.fillStyle="#0c101a";ctx.fillRect(px-6,y+13,5,3);ctx.fillRect(px+1,y+13,5,3);
+
+    // 深蓝礼服大衣
+    ctx.fillStyle="#1b2438";ctx.fillRect(px-8,y-10,16,15);
+
+    // 右肩金色绶带绳（画面左侧）
+    ctx.fillStyle="#cda844";ctx.fillRect(px-9,y-10,2,4);
+    ctx.strokeStyle="#b89332";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(px-8,y-6);ctx.lineTo(px-5,y-2);ctx.stroke();
+
+    // 左胸紫色鸢尾花（画面右侧）
+    ctx.fillStyle="#7142a6";ctx.fillRect(px+5,y-6,3,3);
+    ctx.fillStyle="#f5cf42";ctx.fillRect(px+6,y-5,1,1);
+
+    // 白色层叠褶皱餐巾式领巾 (Jabot)
+    ctx.fillStyle="#fbfcfd";ctx.fillRect(px-4,y-10,8,4);
+    ctx.fillStyle="#eff2f7";ctx.fillRect(px-5,y-6,10,4);
+    ctx.fillStyle="#dee4ee";ctx.fillRect(px-4,y-2,8,4);
+    ctx.strokeStyle="#cbd3e2";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(px-2,y-6);ctx.lineTo(px-2,y+1);ctx.moveTo(px+2,y-6);ctx.lineTo(px+2,y+1);ctx.stroke();
+
+    // 金边白宝石胸针
+    ctx.fillStyle="#cda844";ctx.fillRect(px-2,y-7,4,3);
+    ctx.fillStyle="#ffffff";ctx.fillRect(px-1,y-6,2,2);
+
+    // 清秀白皙面容
+    ctx.fillStyle="#f3e5da";ctx.fillRect(px-6,y-22,12,11);
+
+    // 蔚蓝深邃眼眸
+    ctx.fillStyle="#225bb5";ctx.fillRect(px-4,y-17,2,2);ctx.fillRect(px+2,y-17,2,2);
+    ctx.fillStyle="#6eb2ff";ctx.fillRect(px-4,y-17,1,1);ctx.fillRect(px+2,y-17,1,1);
+
+    // 右眼金丝单片眼镜与垂链（画面左侧）
+    ctx.strokeStyle="#dcb343";ctx.lineWidth=1;
+    ctx.strokeRect(px-5.5,y-18.5,4,4);
     ctx.beginPath();
-    ctx.moveTo(px+8,y-20);
-    ctx.quadraticCurveTo(px+13,y-14,px+11,y-6);
-    ctx.quadraticCurveTo(px+10,y-2,px+8,y-3);
-    ctx.quadraticCurveTo(px+9,y-11,px+6,y-18);
-    ctx.closePath();ctx.fill();
-    ctx.fillStyle="#d6d1c4";ctx.fillRect(px+9,y-14,1,7);  // 高光
-  } else {
-    ctx.fillStyle=n.hair;ctx.fillRect(px-6,y-24,12,5);
-    ctx.fillRect(px-7,y-22,2,6);ctx.fillRect(px+5,y-22,2,6);
-  }
-  if(n.id==="alva"){
-    ctx.fillStyle="#3f7fd4";ctx.fillRect(px-4,y-17,2,2);ctx.fillRect(px+2,y-17,2,2);
-    ctx.fillStyle="#a8d0ff";ctx.fillRect(px-4,y-17,1,1);ctx.fillRect(px+2,y-17,1,1);
-    ctx.strokeStyle="#c9c4b8";ctx.lineWidth=1;
-    ctx.strokeRect(px-5.5,y-18.5,4,4);ctx.strokeRect(px+1.5,y-18.5,4,4);
-    ctx.beginPath();ctx.moveTo(px-1.5,y-16.5);ctx.lineTo(px+1.5,y-16.5);ctx.stroke();
-  } else {
-    ctx.fillStyle="#2a2018";ctx.fillRect(px-4,y-17,2,2);ctx.fillRect(px+2,y-17,2,2);
+    ctx.moveTo(px-5,y-14);ctx.lineTo(px-6,y-10);ctx.lineTo(px-5,y-6);
+    ctx.stroke();
+
+    // 银白波浪卷长发（微卷蓬松质感）
+    ctx.fillStyle="#dbe0eb";
+    ctx.fillRect(px-7,y-26,14,5);        // 发顶
+    ctx.fillRect(px-9,y-22,3,14);        // 左侧微卷垂发
+    ctx.fillRect(px+6,y-22,3,11);        // 右侧微卷垂发
+    ctx.fillStyle="#b8c0cf";
+    ctx.fillRect(px-9,y-8,2,3);          // 蓬松发尾微翘
+    // 额前微卷刘海
+    ctx.fillStyle="#eef2f9";
+    ctx.fillRect(px-6,y-22,2,3);ctx.fillRect(px-1,y-22,2,3);ctx.fillRect(px+3,y-22,2,3);
+
+    // 左肩垂在胸前的侧马尾束（画面右侧），佩戴金色发扣
+    ctx.fillStyle="#dcb343";ctx.fillRect(px+5,y-8,3,2); // 金色发圈
+    ctx.fillStyle="#dbe0eb";ctx.fillRect(px+5,y-6,3,7); // 垂至胸前的发束
+    ctx.fillStyle="#cbd1de";ctx.fillRect(px+6,y+1,3,3); // 发梢渐变
   }
 }
 function drawVignette(){
