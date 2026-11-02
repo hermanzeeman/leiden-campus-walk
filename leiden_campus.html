@@ -79,11 +79,10 @@ const SCENES={
       "#..................#",
       "####################"
     ],
-    doors:[doors:[
-      {c:5,r:4,w:2,h:2,to:"lab",label:"实验室",spawn:{x:5.5,y:3.5}},
+    doors:[
+      {c:5,r:4,w:2,h:2,to:"lab",label:"实验室",spawn:{x:9.5,y:11.0}},
       {c:13,r:4,w:2,h:2,to:"obs",label:"天文台",spawn:{x:13.5,y:3.5}}
     ],
-    npcs:],
     npcs:[],
     spawn:{x:10.0,y:10.6}
   },
@@ -91,34 +90,34 @@ const SCENES={
     name:"电气与算力实验室",
     map:[
       "####################",
-      "#WW....#....#......S",
-      "#WW....#....#......S",
-      "#......#....#.......",
-      "#..TT..#.TT.#..TT...",
-      "#..TT..#.TT.#..TT...",
-      "#......D....D.......",
-      "#..CC..#.CC.#..CC...",
-      "#......#....#.......",
-      "#S.....#....#....P..",
-      "#S.....D....D.......",
-      "#......#....#.......",
+      "#..................#",
+      "#..WW..........SS..#",
+      "#..WW..........SS..#",
+      "#..................#",
+      "#..................#",
+      "#....CCCCCCCCCC....#",
+      "#....C........C....#",
+      "#....C........C....#",
+      "#....CCCCCCCCCC....#",
+      "#..................#",
+      "#..................#",
       "#########DD#########"
     ],
-    doors:[doors:[
+    doors:[
       {c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}},
-      {c:7,r:6,w:1,h:1,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
-      {c:12,r:6,w:1,h:1,to:"lab_shelf",label:"藏书间",spawn:{x:12.5,y:5.5}}
+      {c:9,r:10,w:2,h:1,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
+      {c:9,r:11,w:2,h:1,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
+      {c:18,r:2,w:1,h:2,to:"lab_shelf",label:"藏书间",spawn:{x:9.5,y:10.5}}
     ],
-    npcs:],
     npcs:[
-      {id:"herman",name:"赫尔曼·塞曼",x:3.0,y:8.6,color:"#7a5a30",hair:"#5a3f1e",
+      {id:"herman",name:"赫尔曼·塞曼",x:3.0,y:8.0,color:"#7a5a30",hair:"#5a3f1e",
        lines:[
          "（年轻的他正盯着满墙的公式，头也不回）\n……等一下，这个收敛条件不对。你看，如果把它当成一个循环，它永远停不下来。",
          "（终于转过身，笑了一下）\n哦，是只白猫。你从哪儿溜进来的？阿尔维说过不许在实验室养动物，不过——他不在。",
          "我跟你讲，我想造一台永远转下去的机器。不是永动机，是那种……能自己学会怎么转的机器。听起来很傻，对吧？",
          "（蹲下来，伸手）\n别怕。你要是愿意，就在这儿待着。我们这儿缺一个不催进度的家伙。"
        ]},
-      {id:"alva",name:"阿尔瓦·洛伦兹",x:14.0,y:5.6,color:"#3f4a5a",hair:"#c9c4b8",
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:16.0,y:8.0,color:"#3f4a5a",hair:"#c9c4b8",
        lines:[
          "（推了推眼镜，从图纸上抬起头）\n赫尔曼，你又在跟空气讲你的永动机了？",
          "（注意到你，语气软下来）\n……哪来的猫。白得这么干净，不像野的。",
@@ -132,28 +131,29 @@ const SCENES={
     name:"实验室 · 实验台",
     map:[
       "####################",
-      "#SS....#....#.....S#",
-      "#SS....#....#.....S#",
-      "#......#....#......#",
-      "#.TT...#.TT.#...TT.#",
-      "#.TT...#.TT.#...TT.#",
-      "#......#....#......#",
-      "#..CC..#.CC.#..CC..#",
-      "#......#....#......#",
-      "#......#....#......#",
-      "#......#....#......#",
-      "#......#....#......#",
-      "#########DD#########"    ],
-    doors:[doors:[{c:9,r:12,w:2,h:1,to:"lab",label:"实验室",exit:true,spawn:{x:9.5,y:10.5}}],
-    npcs:],
+      "#SSSSSSSSSSSSSSSSSS#",
+      "#..................#",
+      "#..TTTTTTTTTTTTTT..#",
+      "#..T............T..#",
+      "#..T..CCCCCCCC..T..#",
+      "#..T..C......C..T..#",
+      "#..T..C......C..T..#",
+      "#..T..CCCCCCCC..T..#",
+      "#..T............T..#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#DD##################"
+    ],
+    doors:[{c:1,r:13,w:2,h:1,to:"lab",label:"实验室",exit:true,spawn:{x:9.5,y:11.0}}],
     npcs:[
-      {id:"herman",name:"赫尔曼·塞曼",x:3.0,y:9.4,color:"#7a5a30",hair:"#5a3f1e",
+      {id:"herman",name:"赫尔曼·塞曼",x:4.0,y:3.0,color:"#7a5a30",hair:"#5a3f1e",
        lines:[
          "（把一只烧杯举到灯下，晃了晃）\n你看这层沉淀。它每次都落在同一个位置，像记住了什么似的。",
          "（笑）我知道，我知道，这不是算法。可有时候我觉得，机器要是能学会“记住”，就离我想的东西不远了。",
          "（把烧杯放下，声音低了些）\n阿尔维说我太急。也许吧。但总得有人先急一次。"
        ]},
-      {id:"alva",name:"阿尔瓦·洛伦兹",x:14.0,y:5.6,color:"#3f4a5a",hair:"#c9c4b8",
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:16.0,y:9.0,color:"#3f4a5a",hair:"#c9c4b8",
        lines:[
          "（在图纸上画线，笔尖顿了顿）\n他又熬了一夜。桌上那杯威士忌是昨晚的，没喝完。",
          "（抬头看见你，伸手挠了挠你的下巴）\n你来得正好。陪我去把他从台子边上拽回来，好吗？",
@@ -179,8 +179,7 @@ const SCENES={
       "#..................#",
       "#########DD#########"
     ],
-    doors:[doors:[{c:9,r:12,w:2,h:1,to:"lab",label:"实验室",exit:true,spawn:{x:9.5,y:10.5}}],
-    npcs:],
+    doors:[{c:9,r:12,w:2,h:1,to:"lab",label:"实验室",exit:true,spawn:{x:9.5,y:11.0}}],
     npcs:[
       {id:"herman",name:"赫尔曼·塞曼",x:6.2,y:7.4,color:"#6a5230",hair:"#5a3f1e",
        lines:[
@@ -214,8 +213,7 @@ const SCENES={
       "#..................#",
       "#########DD#########"
     ],
-    doors:[doors:[{c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}}],
-    npcs:],
+    doors:[{c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}}],
     npcs:[
       {id:"herman",name:"赫尔曼·塞曼",x:6.2,y:7.4,color:"#6a5230",hair:"#5a3f1e",
        lines:[
@@ -236,7 +234,7 @@ const SCENES={
   }
 };
 
-const solidChars=new Set(["#","T","L","B","W","S","C","P","D"]);
+const solidChars=new Set(["#","T","L","B","W","S","C","P"]);
 function solid(sc,c,r){
   if(r<0||r>=ROWS||c<0||c>=COLS)return true;
   return solidChars.has(sc.map[r][c]);
@@ -455,7 +453,8 @@ function drawProps(t){
       ctx.fillStyle="#5a4228";ctx.fillRect(x+3,y+3,w-6,h-6);
       ctx.fillStyle="#c8a860";ctx.fillRect(x+w-9,y+h/2-2,3,3);
       ctx.fillStyle="#8fa4c4";ctx.font="10px sans-serif";ctx.textAlign="center";
-      ctx.fillText(d.label,x+w/2,y-6);ctx.textAlign="left";
+      const ly=(d.r<=1)?y+h+12:y-6;
+      ctx.fillText(d.label,x+w/2,ly);ctx.textAlign="left";
     } else if(scene.startsWith("lab")){
       ctx.fillStyle="#2a2014";ctx.fillRect(x,y,w,h);
       ctx.fillStyle="#5a4228";ctx.fillRect(x+2,y+2,w-4,h-4);
