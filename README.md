@@ -1,10 +1,13 @@
 # Leiden Campus Walk · 莱顿大学漫步
 
-一个用纯 HTML + Canvas 写的单文件小游戏。没有依赖、没有构建步骤，双击打开就能玩。
+一个用纯 HTML + Canvas 写的单文件小游戏。没有依赖、没有构建步骤，双击 `index.html` 就能玩。
+
+在线试玩：<https://hermanzeeman.github.io/leiden-campus-walk/>
 
 ## 玩法
 
-- 方向键 / WASD 移动
+- 电脑：方向键 / WASD 移动
+- 手机：左下角虚拟摇杆移动，右下角 `E` 键进门 / 说话
 - 走到门格子上会切换到相邻场景
 - 靠近 NPC 按 `E` 交谈
 - 对话中按 `E` 或空格继续
