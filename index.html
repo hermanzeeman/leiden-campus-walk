@@ -330,7 +330,7 @@ function solid(sc,c,r){
 
 /* ---------- 状态 ---------- */
 let scene="yard", S=SCENES[scene];
-const player={x:0,y:0,w:18,h:14,speed:118,dir:"down",step:0};
+const player={x:0,y:0,w:18,h:14,speed:118,dir:"down",step:0,idleTimer:0};
 function enter(name,sp){
   scene=name; S=SCENES[name];
   const spawnPoint=sp||S.spawn;
@@ -471,7 +471,11 @@ function update(dt){
     const sp=player.speed*dt;
     moveAxis(dx*sp,0);moveAxis(0,dy*sp);
     player.step+=dt*9;
-  } else player.step=0;
+    player.idleTimer=0;
+  } else {
+    player.step=0;
+    player.idleTimer+=dt;
+  }
 }
 function moveAxis(mx,my){
   const nx=player.x+mx,ny=player.y+my,hw=player.w/2,hh=player.h/2;
@@ -620,7 +624,8 @@ function drawProps(t){
 }
 function drawCat(x,y,t){
   const isMoving = player.step > 0;
-  const bob = isMoving ? Math.sin(t*9)*1.2 : Math.sin(t*1.8)*0.5;
+  const isSleeping = !isMoving && (player.idleTimer >= 10.0);
+  const bob = isMoving ? Math.sin(t*9)*1.2 : (isSleeping ? Math.sin(t*1.6)*0.4 : Math.sin(t*2.2)*0.5);
   const px = Math.round(x), py = Math.round(y+bob);
   ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
   ctx.ellipse(px,py+8,11,4,0,0,6.283);ctx.fill();
@@ -628,13 +633,15 @@ function drawCat(x,y,t){
   let tw = 0;
   if(isMoving){
     tw = Math.sin(t*7)*4;
-  } else {
+  } else if(isSleeping){
     const cycle = (t % 4.5);
     if(cycle < 0.75){
       tw = Math.sin(cycle * Math.PI * 4) * 4.2;
     } else {
       tw = Math.sin(t * 1.4) * 0.6;
     }
+  } else {
+    tw = Math.sin(t * 2.0) * 1.2;
   }
   ctx.moveTo(px-8,py+2);ctx.quadraticCurveTo(px-16,py-4+tw,px-12,py-10+tw);ctx.stroke();
   ctx.fillStyle="#f7f5ef";ctx.fillRect(px-8,py-4,16,12);
@@ -642,7 +649,7 @@ function drawCat(x,y,t){
   ctx.beginPath();ctx.moveTo(px-7,py-13);ctx.lineTo(px-5,py-19);ctx.lineTo(px-1,py-13);ctx.fill();
   ctx.beginPath();ctx.moveTo(px+7,py-13);ctx.lineTo(px+5,py-19);ctx.lineTo(px+1,py-13);ctx.fill();
   ctx.fillStyle="#e8b9b0";ctx.fillRect(px-5,py-16,2,2);ctx.fillRect(px+3,py-16,2,2);
-  if(isMoving){
+  if(!isSleeping){
     ctx.fillStyle="#5ad6a8";ctx.fillRect(px-5,py-10,2,3);ctx.fillRect(px+3,py-10,2,3);
   } else {
     ctx.strokeStyle="#3d7e63";ctx.lineWidth=1.3;ctx.beginPath();
