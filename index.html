@@ -235,7 +235,7 @@ const SCENES={
     name:"古老天文台",
     map:[
       "####################",
-      "#OOOOOOOOOOOOOOOOOO#",
+      "#RRRRRRRRRRRRRRRRRR#",
       "#OOOOOOOOOOOOOOOOOO#",
       "#..................#",
       "#..................#",
@@ -269,7 +269,7 @@ const SCENES={
   }
 };
 
-const solidChars=new Set(["#","T","L","B","W","S","C","P"]);
+const solidChars=new Set(["#","T","L","B","W","S","C","P","R"]);
 /* 确保 NPC 不站在障碍物上：若落点被占，就近螺旋搜索一块空地 */
 function placeNPCs(sc){
   const free=(c,r)=>c>=1&&c<COLS-1&&r>=1&&r<ROWS-1&&!solidChars.has(sc.map[r][c]);
@@ -475,6 +475,11 @@ function drawFloor(){
     if(t==="#"){
       ctx.fillStyle="#10141e";ctx.fillRect(x,y,TILE,TILE);
       ctx.fillStyle="#1a2030";ctx.fillRect(x+2,y+2,TILE-4,TILE-4);
+    } else if(t==="R"){
+      ctx.fillStyle="#0a1020";ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle="#4a5670";ctx.fillRect(x+14,y+6,4,22);
+      ctx.fillStyle="#5d6b88";ctx.fillRect(x+13,y+4,6,3);
+      ctx.fillStyle="#3a4458";ctx.fillRect(x,y+16,TILE,3);
     } else if(t==="O"){
       ctx.fillStyle="rgba(8,12,22,.15)";ctx.fillRect(x,y,TILE,TILE);
     } else {
@@ -573,9 +578,8 @@ function drawProps(t){
     }
   }
   if(scene==="obs"){
-    ctx.fillStyle="#4a5670";
-    for(let c=1;c<COLS-1;c++)ctx.fillRect(c*TILE+14,2*TILE+4,4,14);
-    ctx.fillRect(TILE,2*TILE+2,(COLS-2)*TILE,4);
+    ctx.fillStyle="#4a5670";ctx.fillRect(TILE,TILE+2,(COLS-2)*TILE,4);
+    ctx.fillStyle="#5d6b88";ctx.fillRect(TILE,TILE+2,(COLS-2)*TILE,1);
   }
 }
 function drawCat(x,y,t){
