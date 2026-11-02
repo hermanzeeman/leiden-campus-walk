@@ -105,9 +105,8 @@ const SCENES={
     ],
     doors:[
       {c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}},
-      {c:9,r:10,w:2,h:1,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
-      {c:9,r:11,w:2,h:1,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
-      {c:18,r:2,w:1,h:2,to:"lab_shelf",label:"藏书间",spawn:{x:9.5,y:10.5}}
+      {c:1,r:1,w:1,h:2,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
+      {c:18,r:1,w:1,h:2,to:"lab_shelf",label:"藏书间",spawn:{x:9.5,y:10.5}}
     ],
     npcs:[
       {id:"herman",name:"赫尔曼·塞曼",x:3.0,y:8.0,color:"#7a5a30",hair:"#5a3f1e",
@@ -143,9 +142,9 @@ const SCENES={
       "#..................#",
       "#..................#",
       "#..................#",
-      "#DD##################"
+      "####################"
     ],
-    doors:[{c:1,r:13,w:2,h:1,to:"lab",label:"实验室",exit:true,spawn:{x:9.5,y:11.0}}],
+    doors:[{c:0,r:11,w:1,h:2,to:"lab",label:"实验室",exit:true,spawn:{x:9.5,y:11.0}}],
     npcs:[
       {id:"herman",name:"赫尔曼·塞曼",x:4.0,y:3.0,color:"#7a5a30",hair:"#5a3f1e",
        lines:[
@@ -453,8 +452,13 @@ function drawProps(t){
       ctx.fillStyle="#5a4228";ctx.fillRect(x+3,y+3,w-6,h-6);
       ctx.fillStyle="#c8a860";ctx.fillRect(x+w-9,y+h/2-2,3,3);
       ctx.fillStyle="#8fa4c4";ctx.font="10px sans-serif";ctx.textAlign="center";
-      const ly=(d.r<=1)?y+h+12:y-6;
-      ctx.fillText(d.label,x+w/2,ly);ctx.textAlign="left";
+      if(d.h>d.w){  // 竖门：标签画在门右侧
+        ctx.textAlign="left";ctx.fillText(d.label,x+w+6,y+h/2+4);
+      } else {
+        const ly=(d.r<=1)?y+h+12:y-6;  // 贴上边界的门，标签画在门下方
+        ctx.textAlign="center";ctx.fillText(d.label,x+w/2,ly);
+      }
+      ctx.textAlign="left";
     } else if(scene.startsWith("lab")){
       ctx.fillStyle="#2a2014";ctx.fillRect(x,y,w,h);
       ctx.fillStyle="#5a4228";ctx.fillRect(x+2,y+2,w-4,h-4);
