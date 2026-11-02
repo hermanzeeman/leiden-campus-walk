@@ -645,39 +645,41 @@ function drawCat(x,y,t){
     ctx.fillStyle="#5ad6a8";ctx.fillRect(px-5,py-10,2,3);ctx.fillRect(px+3,py-10,2,3);
     ctx.fillStyle="#e8a0a0";ctx.fillRect(px-1,py-6,2,2);
   } else {
-    // 趴卧打盹状态：横向更宽、竖向扁平的猫猫团
+    // 趴卧打盹状态：自然侧卧（身体在左侧舒展，猫头偏向右侧）
     ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
-    ctx.ellipse(px,py+8,14,4,0,0,6.283);ctx.fill();
+    ctx.ellipse(px-1,py+8,14,4,0,0,6.283);ctx.fill();
 
-    // 尾巴：贴地惬意微摆
+    // 尾巴：从后侧（左侧屁股后）贴地自然延伸微摆
     ctx.strokeStyle="#f2f0ea";ctx.lineWidth=3;ctx.beginPath();
     const cycle = (t % 4.5);
     const tw = cycle < 0.75 ? Math.sin(cycle * Math.PI * 4) * 3.2 : Math.sin(t * 1.2) * 0.5;
-    ctx.moveTo(px-10,py+5);ctx.quadraticCurveTo(px-16+tw,py+6,px-17+tw,py+2);ctx.stroke();
+    ctx.moveTo(px-12,py+5);ctx.quadraticCurveTo(px-18+tw,py+6,px-19+tw,py+2);ctx.stroke();
 
-    // 扁而宽的猫身（横宽22px，高度压低至7px）
+    // 侧卧身体：后背与臀部在左，顺畅连接到右前侧
     ctx.fillStyle="#f7f5ef";
-    ctx.fillRect(px-11,py+1,22,7);
-    ctx.fillRect(px-10,py-1,20,2);
+    ctx.fillRect(px-12,py+1,18,7);
+    ctx.fillRect(px-11,py-2,14,3);
+    ctx.fillRect(px-13,py+2,2,5);
 
-    // 脑袋：放低贴在胸前
+    // 猫头：自然偏向右侧（中心移至 px+4）
+    const hx = px + 4;
     ctx.fillStyle="#fbfaf5";
-    ctx.fillRect(px-7,py-6,14,8);
+    ctx.fillRect(hx-6,py-5,13,8);
 
-    // 耳朵：随头部高度压低
-    ctx.beginPath();ctx.moveTo(px-7,py-6);ctx.lineTo(px-5,py-11);ctx.lineTo(px-1,py-6);ctx.fill();
-    ctx.beginPath();ctx.moveTo(px+7,py-6);ctx.lineTo(px+5,py-11);ctx.lineTo(px+1,py-6);ctx.fill();
-    ctx.fillStyle="#e8b9b0";ctx.fillRect(px-5,py-9,2,2);ctx.fillRect(px+3,py-9,2,2);
+    // 耳朵：跟随偏右的头部
+    ctx.beginPath();ctx.moveTo(hx-6,py-5);ctx.lineTo(hx-4,py-10);ctx.lineTo(hx-1,py-5);ctx.fill();
+    ctx.beginPath();ctx.moveTo(hx+2,py-5);ctx.lineTo(hx+5,py-10);ctx.lineTo(hx+7,py-5);ctx.fill();
+    ctx.fillStyle="#e8b9b0";ctx.fillRect(hx-4,py-8,2,2);ctx.fillRect(hx+3,py-8,2,2);
 
-    // 眯缝弯月睡眼
+    // 闭上的弯月睡眼
     ctx.strokeStyle="#3d7e63";ctx.lineWidth=1.3;ctx.beginPath();
-    ctx.moveTo(px-5.5,py-2.5);ctx.lineTo(px-4,py-3.8);ctx.lineTo(px-2.5,py-2.5);
-    ctx.moveTo(px+2.5,py-2.5);ctx.lineTo(px+4,py-3.8);ctx.lineTo(px+5.5,py-2.5);
+    ctx.moveTo(hx-4.5,py-1.5);ctx.lineTo(hx-3,py-2.8);ctx.lineTo(hx-1.5,py-1.5);
+    ctx.moveTo(hx+1.5,py-1.5);ctx.lineTo(hx+3,py-2.8);ctx.lineTo(hx+4.5,py-1.5);
     ctx.stroke();
 
-    // 鼻尖与揣在身前的小爪
-    ctx.fillStyle="#e8a0a0";ctx.fillRect(px-1,py-0.5,2,2);
-    ctx.fillStyle="#ffffff";ctx.fillRect(px-4,py+6,3,2);ctx.fillRect(px+1,py+6,3,2);
+    // 鼻尖与身前垫着的小爪
+    ctx.fillStyle="#e8a0a0";ctx.fillRect(hx,py+0.5,2,2);
+    ctx.fillStyle="#ffffff";ctx.fillRect(hx-3,py+6,3,2);ctx.fillRect(hx+2,py+6,3,2);
   }
 }
 function drawNPC(n,t){
