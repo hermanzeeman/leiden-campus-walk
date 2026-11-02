@@ -103,21 +103,22 @@ const SCENES={
     map:[
       "####################",
       "#..................#",
+      "#..TTT...DD...TTT..#",
+      "#..TTT...DD...TTT..#",
+      "#..................#",
+      "#..DD..........DD..#",
+      "#..DD..........DD..#",
+      "#..................#",
       "#..TTT........TTT..#",
-      "#..................#",
-      "#....DD......DD....#",
-      "#....DD......DD....#",
-      "#..................#",
-      "#..................#",
       "#..TTT........TTT..#",
-      "#..................#",
       "#..................#",
       "#..................#",
       "####################"
     ],
     doors:[
-      {c:5,r:4,w:2,h:2,to:"lab",label:"实验室",spawn:{x:10.0,y:11.0}},
-      {c:13,r:4,w:2,h:2,to:"obs",label:"天文台",spawn:{x:10.0,y:11.0}}
+      {c:9,r:2,w:2,h:2,to:"lib",label:"古籍图书馆",spawn:{x:10.0,y:10.5}},
+      {c:3,r:5,w:2,h:2,to:"lab",label:"实验室",spawn:{x:10.0,y:11.0}},
+      {c:15,r:5,w:2,h:2,to:"obs",label:"天文台",spawn:{x:10.0,y:11.0}}
     ],
     npcs:[],
     spawn:{x:10.0,y:10.6}
@@ -140,7 +141,7 @@ const SCENES={
       "#########DD#########"
     ],
     doors:[
-      {c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}},
+      {c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:4.0,y:7.5}},
       {c:1,r:1,w:1,h:2,to:"lab_bench",label:"实验台",spawn:{x:9.5,y:10.5}},
       {c:18,r:1,w:1,h:2,to:"lab_shelf",label:"藏书间",spawn:{x:9.5,y:10.5}}
     ],
@@ -231,6 +232,50 @@ const SCENES={
     ],
     spawn:{x:10.0,y:10.4}
   },
+  lib:{
+    name:"莱顿大学 · 古籍图书馆",
+    map:[
+      "####################",
+      "#WW....WW....WW..WW#",
+      "#SS....SS....SS..SS#",
+      "#SS....SS....SS..SS#",
+      "#..................#",
+      "#..TTTT........LL..#",
+      "#..TTTT........LL..#",
+      "#..................#",
+      "#..SS....BB....SS..#",
+      "#..SS....BB....SS..#",
+      "#..................#",
+      "#..................#",
+      "#########DD#########"
+    ],
+    doors:[{c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:10.0,y:4.5}}],
+    npcs:[
+      {id:"herman",name:"赫尔曼·塞曼",x:5.0,y:5.0,color:"#6a5230",hair:"#5a3f1e",
+       lines:[
+         "（正从最高一层的书架抽出厚重的拉丁文羊皮卷，手指拂去书脊上的微尘）
+1687年牛顿《自然哲学的数学原理》……当年我和阿尔瓦在这张长桌前，为了一行级数展开争执到闭馆。",
+         "（低头看到你在他靴边打滚蹭来蹭去，眼神温和，俯身轻轻挠了挠猫咪的耳根）
+小家伙，轻一点，这里的地板踩重了都会有回声。怎么，你也想看三百年前的几何证明？",
+         "（笑了笑，指尖抚过泛黄的书页）
+阿尔瓦总笑我把图书馆当避难所。其实在遇到那个理想之前，这里的每一排书架，我都曾一个人彻夜翻阅过。",
+         "（从口袋里摸出一枚用丝带串着的金黄铜书签，在小猫面前轻轻晃了晃）
+安静陪着我坐一会儿吧。等阿尔瓦忙完了，我们一起去运河边喝下午茶。"
+       ]},
+      {id:"alva",name:"阿尔瓦·洛伦兹",x:15.0,y:5.0,color:"#3a4658",hair:"#c9c4b8",
+       lines:[
+         "（靠在高耸的书架旁，手里捧着一本厚皮笔记，眼镜垂着细银链）
+赫尔曼当年把借阅卡都翻毛边了。管理员到现在都记得那个天天霸占最深处靠窗座位的青年。",
+         "（看见猫咪蹭完赫尔曼又颠颠跑过来蹭他的裤脚，低头弯起嘴角）
+怎么，那边的手感不如我这儿？你身上沾满了羊皮纸和旧木料的味道呢。",
+         "（蹲下身，修长的手指顺着小猫的脊背从头抚到尾巴尖）
+赫尔曼一进古籍馆就会讲起过去的掌故……不过，听他讲这些陈年旧事，总比听他算那些无穷循环要让人安心得多。",
+         "（轻轻把猫抱到靠椅软垫上）
+乖乖趴着别闹腾，阳光正照在第七排书架上。让他慢慢看吧，我们陪着他。"
+       ]}
+    ],
+    spawn:{x:10.0,y:10.5}
+  },
   obs:{
     name:"古老天文台",
     map:[
@@ -248,7 +293,7 @@ const SCENES={
       "#..................#",
       "#########DD#########"
     ],
-    doors:[{c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:9.5,y:10.5}}],
+    doors:[{c:9,r:12,w:2,h:1,to:"yard",label:"庭院",exit:true,spawn:{x:16.0,y:7.5}}],
     npcs:[
       {id:"herman",name:"赫尔曼·塞曼",x:6.2,y:7.4,color:"#6a5230",hair:"#5a3f1e",
        lines:[
@@ -493,7 +538,7 @@ function drawProps(t){
   for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
     const ty=S.map[r][c],x=c*TILE,y=r*TILE;
     if(ty==="T"){
-      if(scene.startsWith("lab")){
+      if(scene.startsWith("lab")||scene==="lib"){
         ctx.fillStyle="#3d2f20";ctx.fillRect(x+1,y+6,TILE-2,TILE-10);
         ctx.fillStyle="#8a6a3e";ctx.fillRect(x+1,y+2,TILE-2,8);
         ctx.fillStyle="#a8824c";ctx.fillRect(x+1,y+2,TILE-2,3);
@@ -525,7 +570,7 @@ function drawProps(t){
       ctx.fillStyle="#54432a";ctx.fillRect(x+2,y+10,TILE-4,5);
       ctx.fillStyle="#2a2014";ctx.fillRect(x+4,y+22,3,8);ctx.fillRect(x+TILE-7,y+22,3,8);
     } else if(ty==="W"){
-      if(scene.startsWith("lab")){
+      if(scene.startsWith("lab")||scene==="lib"){
         ctx.fillStyle="#8fa8bd";ctx.fillRect(x+3,y+3,TILE-6,TILE-6);
         ctx.fillStyle="#b9cde0";ctx.fillRect(x+5,y+5,TILE-10,10);
         ctx.fillStyle="#5d6f80";ctx.fillRect(x+TILE/2-1,y+3,2,TILE-6);
@@ -557,7 +602,7 @@ function drawProps(t){
   // 门
   for(const d of S.doors){
     const x=d.c*TILE,y=d.r*TILE,w=d.w*TILE,h=d.h*TILE;
-    if(scene==="yard"||scene.startsWith("lab")){
+    if(scene==="yard"||scene==="lib"||scene.startsWith("lab")){
       // 门框（深色）+ 门板（木色）+ 把手，横竖门统一画法
       ctx.fillStyle="#2a2014";ctx.fillRect(x,y,w,h);
       ctx.fillStyle="#5a4228";ctx.fillRect(x+2,y+2,w-4,h-4);
