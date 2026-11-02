@@ -625,39 +625,60 @@ function drawProps(t){
 function drawCat(x,y,t){
   const isMoving = player.step > 0;
   const isSleeping = !isMoving && (player.idleTimer >= 5.0);
-  const bob = isMoving ? Math.sin(t*9)*1.2 : (isSleeping ? Math.sin(t*1.6)*0.4 : Math.sin(t*2.2)*0.5);
+  const bob = isMoving ? Math.sin(t*9)*1.2 : (isSleeping ? Math.sin(t*1.6)*0.35 : Math.sin(t*2.2)*0.5);
   const px = Math.round(x), py = Math.round(y+bob);
-  ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
-  ctx.ellipse(px,py+8,11,4,0,0,6.283);ctx.fill();
-  ctx.strokeStyle="#f2f0ea";ctx.lineWidth=3;ctx.beginPath();
-  let tw = 0;
-  if(isMoving){
-    tw = Math.sin(t*7)*4;
-  } else if(isSleeping){
-    const cycle = (t % 4.5);
-    if(cycle < 0.75){
-      tw = Math.sin(cycle * Math.PI * 4) * 4.2;
-    } else {
-      tw = Math.sin(t * 1.4) * 0.6;
-    }
-  } else {
-    tw = Math.sin(t * 2.0) * 1.2;
-  }
-  ctx.moveTo(px-8,py+2);ctx.quadraticCurveTo(px-16,py-4+tw,px-12,py-10+tw);ctx.stroke();
-  ctx.fillStyle="#f7f5ef";ctx.fillRect(px-8,py-4,16,12);
-  ctx.fillStyle="#fbfaf5";ctx.fillRect(px-7,py-13,14,11);
-  ctx.beginPath();ctx.moveTo(px-7,py-13);ctx.lineTo(px-5,py-19);ctx.lineTo(px-1,py-13);ctx.fill();
-  ctx.beginPath();ctx.moveTo(px+7,py-13);ctx.lineTo(px+5,py-19);ctx.lineTo(px+1,py-13);ctx.fill();
-  ctx.fillStyle="#e8b9b0";ctx.fillRect(px-5,py-16,2,2);ctx.fillRect(px+3,py-16,2,2);
+
   if(!isSleeping){
+    ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
+    ctx.ellipse(px,py+8,11,4,0,0,6.283);ctx.fill();
+
+    ctx.strokeStyle="#f2f0ea";ctx.lineWidth=3;ctx.beginPath();
+    const tw = isMoving ? Math.sin(t*7)*4 : Math.sin(t*2.0)*1.2;
+    ctx.moveTo(px-8,py+2);ctx.quadraticCurveTo(px-16,py-4+tw,px-12,py-10+tw);ctx.stroke();
+
+    ctx.fillStyle="#f7f5ef";ctx.fillRect(px-8,py-4,16,12);
+    ctx.fillStyle="#fbfaf5";ctx.fillRect(px-7,py-13,14,11);
+    ctx.beginPath();ctx.moveTo(px-7,py-13);ctx.lineTo(px-5,py-19);ctx.lineTo(px-1,py-13);ctx.fill();
+    ctx.beginPath();ctx.moveTo(px+7,py-13);ctx.lineTo(px+5,py-19);ctx.lineTo(px+1,py-13);ctx.fill();
+    ctx.fillStyle="#e8b9b0";ctx.fillRect(px-5,py-16,2,2);ctx.fillRect(px+3,py-16,2,2);
+
     ctx.fillStyle="#5ad6a8";ctx.fillRect(px-5,py-10,2,3);ctx.fillRect(px+3,py-10,2,3);
+    ctx.fillStyle="#e8a0a0";ctx.fillRect(px-1,py-6,2,2);
   } else {
+    // 趴卧打盹状态：横向更宽、竖向扁平的猫猫团
+    ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
+    ctx.ellipse(px,py+8,14,4,0,0,6.283);ctx.fill();
+
+    // 尾巴：贴地惬意微摆
+    ctx.strokeStyle="#f2f0ea";ctx.lineWidth=3;ctx.beginPath();
+    const cycle = (t % 4.5);
+    const tw = cycle < 0.75 ? Math.sin(cycle * Math.PI * 4) * 3.2 : Math.sin(t * 1.2) * 0.5;
+    ctx.moveTo(px-10,py+5);ctx.quadraticCurveTo(px-16+tw,py+6,px-17+tw,py+2);ctx.stroke();
+
+    // 扁而宽的猫身（横宽22px，高度压低至7px）
+    ctx.fillStyle="#f7f5ef";
+    ctx.fillRect(px-11,py+1,22,7);
+    ctx.fillRect(px-10,py-1,20,2);
+
+    // 脑袋：放低贴在胸前
+    ctx.fillStyle="#fbfaf5";
+    ctx.fillRect(px-7,py-6,14,8);
+
+    // 耳朵：随头部高度压低
+    ctx.beginPath();ctx.moveTo(px-7,py-6);ctx.lineTo(px-5,py-11);ctx.lineTo(px-1,py-6);ctx.fill();
+    ctx.beginPath();ctx.moveTo(px+7,py-6);ctx.lineTo(px+5,py-11);ctx.lineTo(px+1,py-6);ctx.fill();
+    ctx.fillStyle="#e8b9b0";ctx.fillRect(px-5,py-9,2,2);ctx.fillRect(px+3,py-9,2,2);
+
+    // 眯缝弯月睡眼
     ctx.strokeStyle="#3d7e63";ctx.lineWidth=1.3;ctx.beginPath();
-    ctx.moveTo(px-5.5,py-8.5);ctx.lineTo(px-4,py-9.8);ctx.lineTo(px-2.5,py-8.5);
-    ctx.moveTo(px+2.5,py-8.5);ctx.lineTo(px+4,py-9.8);ctx.lineTo(px+5.5,py-8.5);
+    ctx.moveTo(px-5.5,py-2.5);ctx.lineTo(px-4,py-3.8);ctx.lineTo(px-2.5,py-2.5);
+    ctx.moveTo(px+2.5,py-2.5);ctx.lineTo(px+4,py-3.8);ctx.lineTo(px+5.5,py-2.5);
     ctx.stroke();
+
+    // 鼻尖与揣在身前的小爪
+    ctx.fillStyle="#e8a0a0";ctx.fillRect(px-1,py-0.5,2,2);
+    ctx.fillStyle="#ffffff";ctx.fillRect(px-4,py+6,3,2);ctx.fillRect(px+1,py+6,3,2);
   }
-  ctx.fillStyle="#e8a0a0";ctx.fillRect(px-1,py-6,2,2);
 }
 function drawNPC(n,t){
   const px=Math.round(n.x*TILE),py=Math.round(n.y*TILE);
