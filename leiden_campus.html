@@ -492,12 +492,29 @@ function drawProps(t){
 }
 function drawCat(x,y,t){
   const bob=Math.sin(t*9)*1.2,px=Math.round(x),py=Math.round(y+bob);
+  const step=Math.sin(t*9);            // 走路时四腿交替
   ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();
-  ctx.ellipse(px,py+8,11,4,0,0,6.283);ctx.fill();
-  ctx.strokeStyle="#f2f0ea";ctx.lineWidth=3;ctx.beginPath();
+  ctx.ellipse(px,py+9,11,4,0,0,6.283);ctx.fill();
+  // 尾巴
+  ctx.strokeStyle="#f2f0ea";ctx.lineWidth=3;ctx.lineCap="round";ctx.beginPath();
   const tw=Math.sin(t*4)*4;
   ctx.moveTo(px-8,py+2);ctx.quadraticCurveTo(px-16,py-4+tw,px-12,py-10+tw);ctx.stroke();
-  ctx.fillStyle="#f7f5ef";ctx.fillRect(px-8,py-4,16,12);
+  // 四条腿：后两条略短，前两条随步态摆动
+  ctx.fillStyle="#e9e6dd";
+  ctx.fillRect(px-7,py+4+Math.max(0,step)*1.5,3,6);   // 后左
+  ctx.fillRect(px-3,py+4+Math.max(0,-step)*1.5,3,6);  // 后右
+  ctx.fillRect(px+2,py+4+Math.max(0,-step)*1.5,3,6);  // 前左
+  ctx.fillRect(px+5,py+4+Math.max(0,step)*1.5,3,6);   // 前右
+  // 爪子
+  ctx.fillStyle="#fbfaf5";
+  ctx.fillRect(px-7,py+9+Math.max(0,step)*1.5,3,2);
+  ctx.fillRect(px-3,py+9+Math.max(0,-step)*1.5,3,2);
+  ctx.fillRect(px+2,py+9+Math.max(0,-step)*1.5,3,2);
+  ctx.fillRect(px+5,py+9+Math.max(0,step)*1.5,3,2);
+  // 身体
+  ctx.fillStyle="#f7f5ef";ctx.fillRect(px-8,py-4,16,10);
+  ctx.fillStyle="#efece3";ctx.fillRect(px-8,py+2,16,4);
+  // 头
   ctx.fillStyle="#fbfaf5";ctx.fillRect(px-7,py-13,14,11);
   ctx.beginPath();ctx.moveTo(px-7,py-13);ctx.lineTo(px-5,py-19);ctx.lineTo(px-1,py-13);ctx.fill();
   ctx.beginPath();ctx.moveTo(px+7,py-13);ctx.lineTo(px+5,py-19);ctx.lineTo(px+1,py-13);ctx.fill();
@@ -515,8 +532,27 @@ function drawNPC(n,t){
   ctx.fillStyle="#dfe4ec";ctx.fillRect(px-2,y-10,4,12);
   ctx.fillStyle="#4a8a5a";ctx.fillRect(px-1,y-7,2,2);
   ctx.fillStyle="#e8c9a8";ctx.fillRect(px-6,y-22,12,12);
-  ctx.fillStyle=n.hair;ctx.fillRect(px-6,y-24,12,5);
-  ctx.fillRect(px-7,y-22,2,6);ctx.fillRect(px+5,y-22,2,6);
+  if(n.id==="alva"){
+    // 长发：头顶 + 两侧垂到肩下的发丝
+    ctx.fillStyle=n.hair;
+    ctx.fillRect(px-7,y-25,14,6);
+    ctx.fillRect(px-8,y-22,3,14);
+    ctx.fillRect(px+5,y-22,3,14);
+    ctx.fillRect(px-8,y-9,3,4);ctx.fillRect(px+5,y-9,3,4);
+    // 马尾：从画面右侧（他的左肩）扎起，垂到肩前
+    ctx.fillStyle="#b8b2a4";
+    ctx.fillRect(px+7,y-21,2,2);                 // 发绳
+    ctx.beginPath();
+    ctx.moveTo(px+8,y-20);
+    ctx.quadraticCurveTo(px+13,y-14,px+11,y-6);
+    ctx.quadraticCurveTo(px+10,y-2,px+8,y-3);
+    ctx.quadraticCurveTo(px+9,y-11,px+6,y-18);
+    ctx.closePath();ctx.fill();
+    ctx.fillStyle="#d6d1c4";ctx.fillRect(px+9,y-14,1,7);  // 高光
+  } else {
+    ctx.fillStyle=n.hair;ctx.fillRect(px-6,y-24,12,5);
+    ctx.fillRect(px-7,y-22,2,6);ctx.fillRect(px+5,y-22,2,6);
+  }
   if(n.id==="alva"){
     ctx.fillStyle="#3f7fd4";ctx.fillRect(px-4,y-17,2,2);ctx.fillRect(px+2,y-17,2,2);
     ctx.fillStyle="#a8d0ff";ctx.fillRect(px-4,y-17,1,1);ctx.fillRect(px+2,y-17,1,1);
